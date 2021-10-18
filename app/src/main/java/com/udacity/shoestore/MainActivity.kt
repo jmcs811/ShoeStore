@@ -14,7 +14,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
         val navController = this.findNavController(R.id.myNavHostFragment)
+        Timber.plant(Timber.DebugTree())
+        Timber.i("in activity main onCreate")
         //NavigationUI.setupActionBarWithNavController(this, navController)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.loginFragment -> {
+                    navController.navigateUp()
+                    navController.navigate(R.id.loginFragment)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

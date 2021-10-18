@@ -1,11 +1,7 @@
 package com.udacity.shoestore
 
-import android.util.Log
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.udacity.shoestore.models.Shoe
 import timber.log.Timber
@@ -33,22 +29,27 @@ class ShoeViewModel : ViewModel() {
     }
 
     fun addShoe(name: String, size: Double, company: String, desc: String) {
-        Timber.i("Adding Shoe")
+        Timber.i("Adding Shoe method: $name $size")
         _shoeList.value?.add(Shoe(name, size, company, desc))
-        Timber.i(_shoeList.value?.joinToString())
-    }
-
-    fun onEventSave(name: String, size: String, company: String, description: String) {
-        var sizeDouble : Double = 0.0
-        try {
-            sizeDouble = size.toDouble()
-        } catch (e: NumberFormatException) {
-            Timber.i("Invalid size entered")
+        for (shoe in _shoeList.value!!)
+            Timber.i(shoe.getName())
         }
-        addShoe(name, sizeDouble, company, description)
+
+    fun onEventSave(name: String, size: Double, company: String, description: String) {
+        Timber.i("Event SAVE")
+//        var sizeDouble : Double = size
+//        try {
+//            sizeDouble = size.toDouble()
+//        } catch (e: NumberFormatException) {
+//            Timber.i("Invalid size entered")
+//        }
+        Timber.i("ONEVENTSAVE $size")
+        Timber.i("Shoe: $name Description: $description sizeDouble: $size")
+        addShoe(name, size, company, description)
         _saveState.value = SaveState.SAVE
     }
     fun onEventSaveComplete() {
+        Timber.i("EVENT SAVE COMPLETE")
         _saveState.value = SaveState.NOPE
     }
 }
