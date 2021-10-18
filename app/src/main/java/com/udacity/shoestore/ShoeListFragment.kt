@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -21,6 +22,7 @@ import timber.log.Timber
 
 
 class ShoeListFragment : Fragment() {
+    private val viewModel: ShoeViewModel by activityViewModels()
     private lateinit var binding: FragmentShoeListBinding
     private lateinit var linearLayout: LinearLayout
     override fun onCreateView(
@@ -31,9 +33,10 @@ class ShoeListFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_shoe_list, container, false
         )
-        val viewModel: ShoeViewModel by viewModels()
-        viewModel.shoeList.observe(this as LifecycleOwner, Observer {
+
+        viewModel.shoeList.observe(this as LifecycleOwner, {
             for (shoe in viewModel.shoeList.value!!) {
+                Timber.d("SHOE LOOP: SHOE: ${shoe.getName()} SIZE: ${shoe.getCompany()}")
                 val inBinding = ShoeListItemBinding.inflate(layoutInflater)
                 inBinding.shoeData = shoe
                 binding.shoeList.addView(inBinding.root)
