@@ -11,6 +11,7 @@
             name="shoeData"
             type="com.udacity.shoestore.models.Shoe" />
     </data>
+    <!-- Constraint layout used to avoid using a nested linearlayout for the buttons -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

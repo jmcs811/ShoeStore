@@ -6,6 +6,7 @@
     <data>
 
     </data>
+<!-- Constraint layout used as this layout is a little more involved -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
